@@ -17,15 +17,19 @@ public class StudentRepository {
 
     @Value("${db.url}")
     private static String DB_URL;
+
     @Value("${db.login}")
     private static String DB_LOGIN;
+
     @Value("${db.password}")
     private static String DB_PASSWORD;
+
     private static Connection connection;
 
     static {
         try {
             Class.forName("org.postgresql.Driver");
+            //TODO
 //            connection = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://127.0.0.1:5432/axample",
@@ -38,6 +42,12 @@ public class StudentRepository {
     }
 
 
+//    @PostConstruct
+    private void postConstruct() {
+
+    }
+
+
     public Student getByName(String name) {
 
         Student student = new Student();
@@ -45,13 +55,13 @@ public class StudentRepository {
         try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "select * from student s" +
-                    "where s.name=" + name);
+                    "select * from student s " +
+                    "where s.name= '" + name + "'");
 
-            do {
+            while (rs.next()) {
                 student.setName(rs.getString(1));
                 student.setAge(rs.getInt(2));
-            } while (rs.next());
+            }
 
         } catch (SQLException e) {
             System.out.println("Мы не умеем работать с бд");

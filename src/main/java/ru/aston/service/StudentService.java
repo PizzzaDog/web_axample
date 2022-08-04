@@ -14,10 +14,12 @@ public class StudentService {
     private StudentRepository studentRepository;
 
 
+    //TODO
     public List<Student> getAllStudents() {
         return studentRepository.getAll();
     }
 
+    //TODO
     public Student getStudent(String name) {
         return studentRepository.getByName(name);
     }
