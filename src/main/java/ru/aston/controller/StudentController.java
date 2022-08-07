@@ -14,13 +14,13 @@ import ru.aston.service.StudentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
     private StudentService service;
 
-    @GetMapping
+    @GetMapping("/allstudents")
     public List<Student> getAllStudents() {
         return service.getAllStudents();
     }
