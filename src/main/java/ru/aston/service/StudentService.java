@@ -4,15 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.aston.model.Student;
 import ru.aston.repository.StudentRepository;
+import ru.aston.repository.StudentRepositoryImpl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @Service
 public class StudentService {
 
+    private StudentRepositoryImpl studentRepository;
     @Autowired
-    private StudentRepository studentRepository;
-
+    public StudentService(StudentRepositoryImpl studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     //TODO
     public List<Student> getAllStudents() {
@@ -23,4 +29,5 @@ public class StudentService {
     public Student getStudent(String name) {
         return studentRepository.getByName(name);
     }
+
 }
